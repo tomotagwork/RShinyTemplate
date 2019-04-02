@@ -30,4 +30,4 @@ for /f "skip=1 tokens=1,2,3,4,5* usebackq" %%a in (`netstat -abno`) do (
 )
 
 
-rem exit 0
+exit 0
