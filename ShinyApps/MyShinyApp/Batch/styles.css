@@ -1,0 +1,26 @@
+.rpivotTable{
+	overflow-x: scroll;
+	
+}
+
+#table-of-contents > h2 {
+	background-color: #0033CC;
+}
+
+#table-of-cintents > h2 > a {
+	color: #FFFFFF;
+}
+
+h1,h2,h3,h4 {
+	color: #000000;
+}
+
+#content {
+	max-width: 100%;
+}
+
+
+
+table.dataTable th, table.dataTable th.dt-right{
+	text-align:center
+}

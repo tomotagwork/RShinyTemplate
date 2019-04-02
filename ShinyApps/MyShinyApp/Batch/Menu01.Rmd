@@ -1,0 +1,155 @@
+---
+title: "【Menu01】レポート"
+date: "`r Sys.Date()`"
+author: xxx
+params:
+  argTargetFile: "./tempData/20190402_160650.482537.rdata"
+output:
+  rmdformats::readthedown:
+    self_contained: TRUE
+    thumbnails: false
+    lightbox: false
+    toc_depth: 1
+    md_extensions: -ascii_identifiers
+    css: styles.css
+    #highlight: kate
+---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE, warning=FALSE, error=TRUE, message=FALSE}
+before <- proc.time()
+options(java.parameters="-Xmx4g")
+library(knitr)          # markdown
+library(markdown)       # markdown
+library(rmdformats)
+library(scales)         # datetime
+library(DT)             # DataTable
+library(directlabels)   # label
+library(rpivotTable)    # pivot
+library(lubridate)      # parse_date_time2 (fast translation POSIXct)
+library(plyr)           # apply
+library(tidyr)          # gather
+library(devtools)       # 
+library(reshape2)       # dcast (for xst only)
+library(bit64)          # integer64
+library(stringr)        # character operation
+library(data.table)     # fread (fast read)
+library(htmltools)
+library(dplyr)
+library(xts)
+library(lubridate)
+
+
+#---
+# knitr::opts_chunk$set(echo = FALSE)
+# knitr::opts_chunk$set(cache = FALSE)
+# #knitr::opts_chunk$set(results = "asis")
+# knitr::opts_chunk$set(eval = FALSE)
+# knitr::opts_chunk$set(tidy = TRUE)
+# knitr::opts_chunk$set(warning = FALSE)
+# knitr::opts_chunk$set(error = TRUE)
+# knitr::opts_chunk$set(message = FALSE)
+# knitr::opts_chunk$set(dpi = 100)
+#options(markdown.HTML.options = c("toc", "mathjax", "highlight_code"))
+
+options(scipen=100)
+options(digits.secs = 6)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=FALSE,
+               prompt=FALSE,
+               tidy=FALSE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE,
+               dpi = 100)
+opts_knit$set(width=75)
+
+
+#------------------------------------ set variables
+if (params$argTargetFile == "") {
+  print("*** set target file!")
+  quit()
+} else {
+  targetFile <- params$argTargetFile
+}
+
+load(targetFile)
+
+inputFileName <- listData$fileName
+dfRawData_Menu01 <- listData$data
+
+```
+
+# プロファイル
+対象ファイル名: `r inputFileName`
+
+-----
+
+# データ {.tabset .tabset-fade}
+
+## DataTable
+
+```{r}
+
+message <- ""
+fileName <- "Menu01"
+if (nrow(dfRawData_Menu01)>0) {
+  datatable(dfRawData_Menu01,
+            rownames = FALSE,
+            escape = FALSE,
+            filter = "top",
+            extensions = c("Buttons","FixedColumns","FixedHeader"),
+            options=list(pageLength = 10,
+                         colRecorder = FALSE,
+                         dom = "Blftrip",
+                         buttons = list("copy",
+                                        list(extend = "collection",
+                                             text = "Download",
+                                             buttons = list(list(extend="csv", title=fileName),
+                                                            list(extend="excel", title=fileName)
+                                             )
+                                        ),
+                                        list(extend = "colvis",
+                                             text="column select"
+                                        )
+                         )
+                                        
+            )
+    
+  )
+} else {
+  message <- "該当するレコードがありません"
+}
+
+
+```
+
+`r message`
+
+## PivotTable
+
+```{r}
+
+message <- ""
+if (nrow(dfRawData_Menu01)>0) {
+  rpivotTable(dfRawData_Menu01, 
+              rows = c(colnames(dfRawData_Menu01)[1]), 
+              cols = c(""),
+              width = "100%",
+              height = "100%",
+              rendererName = "Heatmap", 
+              aggregatorName = "Count"
+  )
+  
+}else {
+  message <- "該当するレコードがありません"
+}
+
+```
+
+        
+`r message`
+
