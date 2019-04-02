@@ -8,7 +8,7 @@ set ProcessName=Rscript.exe
 rem Header
 echo ProcessName,PID,ListenAddressPort
 
-for /f "skip=1 tokens=1,2,3,4,5* usebackq" %%a in ('netstat -ahno') do (
+for /f "skip=1 tokens=1,2,3,4,5* usebackq" %%a in (`netstat -abno`) do (
 	rem echo -----
 	rem echo f1: %%a, / f2: %%b / f3: %%c / f4: %%d / f5: %%e
 
@@ -30,4 +30,4 @@ for /f "skip=1 tokens=1,2,3,4,5* usebackq" %%a in ('netstat -ahno') do (
 )
 
 
-exit 0
+rem exit 0
