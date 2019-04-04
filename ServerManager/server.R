@@ -48,23 +48,33 @@ func_getServerInfoFileList <- function(){
 func_getProcessInfo <- function(){
   dfResult <- data.frame()
   
-  #get ProcessID and ListenPort list for Rscript.exe
-  processInfo <- system2(strListProcessCommand, stdout=TRUE,invisible=TRUE)
-
-  if (length(processInfo)>=2){
-    #Build data.frame
-    matrixProcessInfo <- stringr::str_split(processInfo, ",", simplify=TRUE)
-    dfProcessInfo <- data.frame(matrixProcessInfo[2:nrow(matrixProcessInfo),1],
-                                matrixProcessInfo[2:nrow(matrixProcessInfo),2],
-                                matrixProcessInfo[2:nrow(matrixProcessInfo),3])
-    colnames(dfProcessInfo) <- matrixProcessInfo[1,]
-    dfProcessInfo$ListenAddressPort <- stringr::str_replace_all(dfProcessInfo$ListenAddressPort, "\t", "")
+  #get Listen port and PID from netstat command
+  netstatInfo <- system2("netstat", args=c("-anop", "TCP"), stdout=TRUE, invisible=TRUE)
+  netstatInfo <- netstatInfo[stringr::str_detect(netstatInfo, "LISTEN")]
+  #temp <- temp[stringr::str_detect(temp, paste0(":",portTest))]
+  netstatInfo <- stringr::str_split(netstatInfo, "[ ]+", simplify=TRUE)
+  listListenPort <- stringr::str_split(netstatInfo[,3], ":", simplify=TRUE)[,2]
+  dfNetstatInfo <- data.frame(PID=as.integer(netstatInfo[,6]), portNumber=as.integer(listListenPort))
+  
+  #get PID and ProcessName
+  dfPsInfo <- ps::ps()
+  dfPsInfo <- data.frame(ProcessName=dfPsInfo$name, PID=dfPsInfo$pid)
+  
+  #merge (ProcessName, PID, portNumber)
+  dfProcessInfo <- dplyr::right_join(dfPsInfo, dfNetstatInfo, by=c("PID"))
+  
+  if (nrow(dfProcessInfo)) {
+    #extract Rscript.exe
+    dfProcessInfo <- dplyr::filter(dfProcessInfo, ProcessName=="Rscript.exe")
     
-    #Extract Port
-    dfProcessInfo$portNumber <- as.numeric(stringr::str_replace(dfProcessInfo$ListenAddressPort, "^.*:", ""))
+    if (nrow(dfProcessInfo)) {
+      #extract Rscript.exe
+      dfResult <- dfProcessInfo
+      
+    }
     
-    dfResult <- dfProcessInfo
-  } 
+  }
+  
   
   return(dfResult)
 }

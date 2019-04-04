@@ -4,7 +4,7 @@ Sys.setenv(TZ="Asia/Tokyo")
 
 
 ### Variables ###################################################################
-serverAddress <- "SERVER01"
+serverAddress <- "server01"
 AdminUserID <- "admin"
 AdminPassword <- "ABCDEFGH"
 
@@ -12,6 +12,6 @@ serverInfoDir <- "../serverInfo/"
 shinyAppDir="../ShinyApps/"
 portListFileName <- "./portList.csv"
 
-strListProcessCommand <- "./Batch/listProcess.bat"
+#strListProcessCommand <- "./Batch/listProcess.bat"
 strCreateServerCommand <- "./Batch/createServer.bat"
 strDeleteServerCommand <- "./Batch/deleteServer.bat"
