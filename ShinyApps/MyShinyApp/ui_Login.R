@@ -7,7 +7,7 @@ tabItem_Login <- tabItem("tab_Login",
                              
                            ),
                            column(3,
-                                  textInput("textIn_Password_Login", label="Password:")
+                                  passwordInput("textIn_Password_Login", label="Password:")
                            ),
                            column(4,
                                   br(),
