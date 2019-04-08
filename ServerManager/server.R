@@ -145,7 +145,7 @@ func_getServerInfo <- function(){
     
     #set status
     dfResult$status <- ifelse(is.na(dfResult$userID),
-                              ifelse(is.na(dfResult$PID), "down", "zonbi"),
+                              ifelse(is.na(dfResult$PID), "down", "zombie"),
                               ifelse(is.na(dfResult$PID), "starting", "up")
     )
     
