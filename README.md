@@ -27,3 +27,4 @@ Shinyアプリからバッチ起動でR Markdownによる静的レポートを�
 ![ServerManager_overall](http://raw.github.com/tomotagwork/images/master/RShinyTemplate/ShinyApplTemplate_overview.png)
 
 ## Detail
+[Qiita: R - Shinyアプリ/管理サーバー テンプレート](https://qiita.com/tomotagwork/items/3041efde7ae0b46e4c5f)
