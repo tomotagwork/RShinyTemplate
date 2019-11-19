@@ -16,16 +16,16 @@ Shinyアプリからバッチ起動でR Markdownによる静的レポートを�
 # Server Manager 
 
 #### 全体像
-![ServerManager_overall](http://raw.github.com/tomotagwork/images/master/RShinyTemplate/ServerManager_overview.png)
+![ServerManager_overall](http://raw.github.com/tomotagwork/RShinyTemplate/master/images/ServerManager_overview.png)
 
 #### 画面イメージ
-![ServerManager_overall](http://raw.github.com/tomotagwork/images/master/RShinyTemplate/ServerManager_ScreenImage.png)
+![ServerManager_overall](http://raw.github.com/tomotagwork/RShinyTemplate/master/images/ServerManager_ScreenImage.png)
 
 
 # Shinyアプリテンプレート
 
 #### 全体像
-![ServerManager_overall](http://raw.github.com/tomotagwork/images/master/RShinyTemplate/ShinyApplTemplate_overview.png)
+![ServerManager_overall](http://raw.github.com/tomotagwork/RShinyTemplate/master/images/ShinyApplTemplate_overview.png)
 
 ## Detail
 [Qiita: R - Shinyアプリ/管理サーバー テンプレート](https://qiita.com/tomotagwork/items/3041efde7ae0b46e4c5f)
